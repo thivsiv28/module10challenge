@@ -1,0 +1,27 @@
+{
+  "name": "module10oop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thivsiv28/module10challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thivsiv28/module10challenge/issues"
+  },
+  "homepage": "https://github.com/thivsiv28/module10challenge#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^29.1.2"
+  }
+}
