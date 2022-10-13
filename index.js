@@ -4,6 +4,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
+const { url } = require('inspector');
 
 const dir = './dist';
 if (!fs.existsSync(dir)) {
@@ -63,7 +64,7 @@ const managerQuestions = [
     {
         type: 'input',
         name: 'id',
-        message: "What is the team manager's employee id?",
+        message: "What is the team manager's employee ID?",
     },
     {
         type: 'input',
@@ -79,7 +80,7 @@ const addingEmployees = [
     {
         type: 'list',
         name: 'roleType',
-        message: 'Would type of employee would you like to add?',
+        message: 'Would type of employee would you like to add? Select none if you would like to stop adding employees to your team',
         choices: [
             {
                 value: 'engineer',
@@ -94,27 +95,12 @@ const addingEmployees = [
     },
 ];
 
-// TODO: Create an array of questions for user input
-// inquirer.prompt(
-//     managerQuestions)
-//     .then((answers) => {
-//         console.log(answers);
-
-//     });
-//create function called createteams. console log im creating team and call it
-//promise = async function
-//async functions= promise
 async function createTeams() {
     let managerAnswers = await inquirer.prompt(managerQuestions);
-    console.log(managerAnswers);
     const manager = new Manager(managerAnswers.name, managerAnswers.id,
         managerAnswers.emailAddress, managerAnswers.officeNumber);
     const employeeArray = [manager];
-    /*
-    display correct type of questions
-    get the answers, create correct type of onject with the answers
-    and then add them to the employee list
-    */
+
     let employeeSelection = await inquirer.prompt(addingEmployees);
     while (employeeSelection.roleType !== "none") {
         if (employeeSelection.roleType == "engineer") {
@@ -133,7 +119,6 @@ async function createTeams() {
 
         employeeSelection = await inquirer.prompt(addingEmployees);
     }
-    console.log(employeeArray);
     writeToFile(generateHTML(employeeArray));
 }
 
@@ -144,20 +129,11 @@ function writeToFile(data) {
     );
 }
 
-//inquierer. prompt returns a prompise with the answers
-//create teams returns a promise with a string
 createTeams()
     .then(() => {
         console.log("done creating teams");
     })
     .catch(err => console.log(err));
-
-//call then method on createteams and w.e it returns display it using console
-
-
-//create function that will accept list of employees and generate file in html
-//after getting answers for all the employees, call generate html function with employee list
-//save the generate html into a file
 
 const generateHTML = (employeeArray) => {
     return `<!DOCTYPE html>
@@ -198,9 +174,6 @@ const generateHTML = (employeeArray) => {
     </html>`;
 }
 
-// create an for loop and go through the employee array
-// and create a card for each employee
-//concatanate them 
 function createCards(employeeArray) {
     let cardstring = "";
     for (let i = 0; i < employeeArray.length; i++) {
@@ -210,38 +183,30 @@ function createCards(employeeArray) {
                 <h5 class="card-title">Role: ${employeeArray[i].getRole()}</h5>
                 <p class="card-text">Id: ${employeeArray[i].getId()}</p>
                 <p> Email:<a href="mailto:${employeeArray[i].getEmail()}">${employeeArray[i].getEmail()}</a></p>
-                <p> Github:${employeeArray[i].getEmail()} </p>
+                ${employeeSpecifics(employeeArray[i])}
             </div>
         </div>`;
         cardstring = cardstring + card;
     }
+
     return cardstring;
 
 }
 
 
-/*
-ask if they want to add engineer intern or none
-if choose is engineer
-    then load engineer questions
-if choose intern
-    then load intern questions
-ask if they want to add another egineer or intern or none
-if choose enginner
-    then load enginner again
-if choose intern
-    then load intern again
-if choose none
-    then exit prompt
-    and load html
-*/
+function employeeSpecifics(employeeDetails) {
+    if (employeeDetails.getRole() == "Engineer") {
+        return `<p> Github:<a target="_blank" href="https://github.com/${employeeDetails.getGithub()}">${employeeDetails.getGithub()}</a></p>`
+    }
 
-/**
- * CREATE FUNCTION THAT REPLACES LINE 213 
- * CREATE FUNCTION THAT EXPECTS EMPLOYEE OBJECT. IF THE EMPLOYEE IS 
- * AN ENGINEER IT WILL RETURN THE HTML FOR THE GITHUB URL
- * IF THE EMPLOYEE IS AN INTERN IT WILL RETURN THE HTML FOR THE SCHOOL
- * IF EMPLOYEE IS MANAGER IT WILL RETURN OFFICE ID AND OTHER REPLATED INFO. 
- */
+    else if (employeeDetails.getRole() == "Intern") {
+        return `<p> School: ${employeeDetails.getSchool()} </p>`;
 
+    }
+
+    else if (employeeDetails.getRole() == "Manager") {
+        return `<p> Office Number: ${employeeDetails.officeNumber}</p>`
+    }
+
+}
 
