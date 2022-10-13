@@ -14,18 +14,13 @@ node index.js
 
 The following image shows a mock-up of the generated HTML’s appearance and functionality:
 
-![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./Assets/10-object-oriented-programming-homework-demo.png)
+![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./dist/samplehtmlscreenshot.png)
 
 
 
+### Application walkthrough video that demonstrates the functionality of the application and passing tests:
+https://drive.google.com/file/d/1Ur3lDubetKxQmPxn-Lz_rP6Bq2v2g96i/view
 
 
-
-
-
-
-#### Application walkthrough video that demonstrates the functionality of the application and passing tests:
-
-
-#### Application GitHub Repository URL:
+### Application GitHub Repository URL:
 https://github.com/thivsiv28/module10challenge
