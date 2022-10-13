@@ -14,7 +14,7 @@ node index.js
 
 The following image shows a mock-up of the generated HTML’s appearance and functionality:
 
-![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./dist/samplehtmlscreenshot.png)
+![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./samplehtmlscreenshot.png)
 
 
 
